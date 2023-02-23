@@ -19,7 +19,13 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"],
-      "@config": ["config"]
+      "@config": ["config"],
+      "@utils/*": ["utils/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@services/*": ["services/*"],
+      "@routes/*": ["routes/*"],
+      "@models/*": ["models/*"],
+      "@controllers/*": ["controllers/*"],
     }
   }
 }
