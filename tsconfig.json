@@ -26,6 +26,10 @@
       "@routes/*": ["routes/*"],
       "@models/*": ["models/*"],
       "@controllers/*": ["controllers/*"],
+      "@exceptions/*": ["exceptions/*"],
+      "@middlewares/*" : ["middlewares/*"]
     }
+
   }
+  
 }

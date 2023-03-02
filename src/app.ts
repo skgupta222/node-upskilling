@@ -2,6 +2,13 @@ import express from 'express';
 import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
 import { Routes } from './interfaces/routes.interface';
 
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import morgan from 'morgan';
+
+import errorMiddleware from '@middlewares/error.middleware';
+import { logger, stream } from '@utils/logger';
+
 class App {
     public app: express.Application;
     public env: string;
@@ -14,14 +21,18 @@ class App {
 
         this.initializeMiddlewares();
         this.initializeRoutes(routes);
+        this.initializeSwagger();
+        this.initializeErrorHandling();
     }
 
 
     public listen() {
-        this.app.listen(this.port, () => {
-            console.log(`======= ENV: ${this.env} =======`);
-            console.log(`App listening on the port ${this.port}`);
-        })
+      this.app.listen(this.port, () => {
+        logger.info(`=================================`);
+        logger.info(`======= ENV: ${this.env} =======`);
+        logger.info(`🚀 App listening on the port ${this.port}`);
+        logger.info(`=================================`);
+      });
     }
 
     public getServer() {
@@ -29,6 +40,7 @@ class App {
     }
 
     private initializeMiddlewares() {
+      this.app.use(morgan(LOG_FORMAT!, { stream }));
         this.app.use(express.json());
     }
     private initializeRoutes(routes: Routes[]) {
@@ -36,6 +48,27 @@ class App {
           this.app.use('/', route.router);
         });
       }
+
+      private initializeSwagger() {        
+        const options = {
+          swaggerDefinition: {
+            info: {
+              title: 'REST API',
+              version: '1.0.0',
+              description: 'Node Learning',
+            },
+          },
+          apis: ['swagger.yaml'],
+        };
+    
+        const specs = swaggerJSDoc(options);
+        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+      }
+
+      private initializeErrorHandling() {
+        this.app.use(errorMiddleware);
+      }
+
 }
 
 export default App;

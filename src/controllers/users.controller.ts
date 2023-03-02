@@ -5,7 +5,7 @@ import { NextFunction, Request, Response } from 'express';
 class UsersController {
 
     public userService = new userService();
-
+    
     public getUsers =async(req:Request, res: Response, next: NextFunction) => {
     try {
         const allUsersData: User[] = await this.userService.findAllUsers();
@@ -15,6 +15,18 @@ class UsersController {
     } catch (error) {
         next(error);
     }
+    }
+
+    public getUserById =async (req:Request, res: Response, next: NextFunction) => {
+        try {
+            const userId = Number(req.params.id);
+
+            const findSingleUser = await this.userService.findUserById(userId);
+
+            res.status(200).json({data: findSingleUser, message: 'findOne'});
+        } catch (error) {
+            next(error);
+        }
     }
 
 }
