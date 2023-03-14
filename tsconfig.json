@@ -5,6 +5,7 @@
     "typeRoots": ["node_modules/@types"],
     "moduleResolution": "node",
     "module": "commonjs",
+    "experimentalDecorators": true,
     "pretty": true,
     "sourceMap": true,
     "declaration": true,
@@ -27,7 +28,8 @@
       "@models/*": ["models/*"],
       "@controllers/*": ["controllers/*"],
       "@exceptions/*": ["exceptions/*"],
-      "@middlewares/*" : ["middlewares/*"]
+      "@middlewares/*" : ["middlewares/*"],
+      "@dtos/*" : ["dtos/*"]
     }
 
   }

@@ -1,5 +1,5 @@
 import express from 'express';
-import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
+import { NODE_ENV, PORT, LOG_FORMAT} from '@config';
 import { Routes } from './interfaces/routes.interface';
 
 import swaggerJSDoc from 'swagger-jsdoc';
