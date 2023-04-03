@@ -2,8 +2,8 @@ import { IsEmail, IsString } from 'class-validator';
 
 export class CreateUserDto {
   @IsEmail()
-  public email!: string;
+  public email: string | undefined;
 
   @IsString()
-  public password!: string;
+  public password: string | undefined;
 }
